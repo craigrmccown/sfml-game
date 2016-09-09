@@ -43,30 +43,72 @@ class Animation
     }
 };
 
-class GameTile
+class GameObject
 {
+    public:
+
     sf::Sprite sprite;
-    Animation *animation; 
+
+    GameObject(int pos_x, int pos_y)
+    {
+        this->sprite.setPosition(sf::Vector2f(pos_x, pos_y));
+    }
+
+    void set_texture(sf::Texture &texture)
+    {
+        this->sprite.setTexture(texture);
+    }
+
+    void move(float delta_x, float delta_y)
+    {
+        this->sprite.move(delta_x, delta_y);
+    }
+
+    void draw(sf::RenderWindow *window)
+    {
+        window->draw(this->sprite);
+    }
+
+    virtual void draw(sf::RenderWindow *window, int elapsed_ms);
+};
+
+class GrassTile : GameObject
+{
+    sf::Texture *texture;
 
     public:
 
     static const int tile_width = 100;
     static const int tile_height = 50;
 
-    GameTile(Animation *animation, int map_width, int x, int y)
+    GrassTile()
     {
-        this->animation = animation;
-        this->animation->set_sprite(&this->sprite);
-
-        int abs_x = (map_width / 2) + (GameTile::tile_width / 2) * (x - y - 1);
-        int abs_y = (GameTile::tile_height / 2) * (x + y);
-        this->sprite.setPosition(sf::Vector2f(abs_x, abs_y));
+        // pass in texture manager and select texture
+        this->set_texture(*texture);
     }
 
     void draw(sf::RenderWindow *window, int elapsed_ms)
     {
-        this->animation->step(elapsed_ms);
-        window->draw(sprite);
+        this->draw(window);
+    }
+};
+
+class WaterTile : GameObject
+{
+    Animation animation;
+
+    public:
+
+    WaterTile()
+    {
+        // select textures from texture manager
+        // add textures to animation
+    }
+
+    void draw(sf::RenderWindow *window, int elapsed_ms)
+    {
+        this->animation.step(elapsed_ms);
+        this->draw(window);
     }
 };
 
@@ -96,7 +138,6 @@ class Map
         water_texture_0->loadFromFile("assets/tile_water_0.png");
         water_texture_1->loadFromFile("assets/tile_water_1.png");
 
-        
         for(int y = 0; y < num_tiles_y; y ++)
         {
             for (int x = 0; x < num_tiles_x; x ++)
