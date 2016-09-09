@@ -101,7 +101,7 @@ class Map
         {
             for (int x = 0; x < num_tiles_x; x ++)
             {
-                if (x == y)
+                if ((x - y) % 5 > 1 || x + y < 5)
                 {
                     Animation *water_animation = new Animation();
                     water_animation->add_texture(water_texture_0);
