@@ -1,16 +1,11 @@
 #include <SFML/Graphics.hpp>
 
-class GrassTile : public MapTile
+GrassTile::GrassTile(sf::Texture *texture)
 {
-public:
+    this->sprite.setTexture(*texture);
+}
 
-    GrassTile(sf::Texture *texture)
-    {
-        this->sprite.setTexture(*texture);
-    }
-
-    void draw(sf::RenderWindow *window, int elapsed_ms)
-    {
-        window->draw(this->sprite);
-    }
-};
+void GrassTile::draw(sf::RenderWindow *window, int elapsed_ms)
+{
+    window->draw(this->sprite);
+}

@@ -6,6 +6,13 @@
 
 class Animation
 {
+    SpriteSheet *sprite_sheet;
+    int sprite_sheet_y;
+    int sprite_sheet_x;
+    int num_frames;
+    int current_elapsed;
+    int ms_per_frame;
+
 public:
 
     Animation(SpriteSheet *sprite_sheet, int sprite_sheet_y, int num_frames, int duration_ms);
