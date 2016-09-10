@@ -38,9 +38,6 @@ $(TARGET): $(OBJS)
 $(ODIR)/%.o: $(SDIR)/%.cpp
 	$(CC) $(CFLAGS) -c $? -o $@
 
-.PHONY: assets
-assets: $(BDIR) 
-
 .PHONY: clean
 clean:
 	$(RM) $(ODIR)
