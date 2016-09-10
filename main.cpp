@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class SpriteSheet
 {
@@ -96,7 +97,15 @@ class GameObject
     virtual void draw(sf::RenderWindow *window, int elapsed_ms) = 0;
 };
 
-class GrassTile : public GameObject
+class MapTile : public GameObject
+{
+    public:
+
+    static const int width = 100;
+    static const int height = 50;
+};
+
+class GrassTile : public MapTile
 {
     public:
 
@@ -111,7 +120,7 @@ class GrassTile : public GameObject
     }
 };
 
-class WaterTile : public GameObject
+class WaterTile : public MapTile
 {
     SpriteSheet *sprite_sheet;
     Animation *animation;
@@ -121,7 +130,7 @@ class WaterTile : public GameObject
     WaterTile(sf::Texture *texture)
     {
         this->sprite_sheet = new SpriteSheet(texture, 100, 50);
-        this->animation = new Animation(this->sprite_sheet, 0, 4, 1000);
+        this->animation = new Animation(this->sprite_sheet, 0, 5, 1000);
     }
 
     void draw(sf::RenderWindow *window, int elapsed_ms)
@@ -142,9 +151,8 @@ class Map
 {
     int num_tiles_y;
     int num_tiles_x;
-    std::vector<GameObject *> tiles;
+    std::vector<MapTile *> tiles;
     std::vector<sf::Texture *> textures;
-    std::vector<Animation *> animations;
 
     public:
 
@@ -163,7 +171,7 @@ class Map
         {
             for (int x = 0; x < num_tiles_x; x ++)
             {
-                GameObject *tile;
+                MapTile *tile;
 
                 if ((x - y) % 5 > 1 || x + y < 5)
                 {
@@ -174,8 +182,9 @@ class Map
                     tile = new GrassTile(grass_texture);
                 }
 
-                int x_pos = (x - y - 1) * (tile->get_width() / 2) + (map_width / 2);
-                int y_pos = (x + y) * (tile->get_height() / 2);
+                int x_pos = (x - y - 1) * (MapTile::width / 2) + (map_width / 2);
+                int y_pos = (x + y) * (MapTile::height / 2);
+
                 tile->set_position(x_pos, y_pos);
                 tiles.push_back(tile);
             }
@@ -194,19 +203,14 @@ class Map
     {
         int i;
 
-        for (i = 0; i < tiles.size(); i ++)
+        for (int i = 0; i < tiles.size(); i ++)
         {
             delete tiles[i];
         }
 
-        for (i = 0; i < textures.size(); i ++)
+        for (int i = 0; i < textures.size(); i ++)
         {
             delete textures[i];
-        }
-
-        for (i = 0; i < animations.size(); i ++)
-        {
-            delete animations[i];
         }
     }
 };
@@ -218,7 +222,7 @@ int main()
 
     sf::Clock clock;
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "My Window");
-    Map map = Map(window_width, 25, 25);
+    Map map = Map(window_width, 15, 15);
 
     while (window.isOpen())
     {
