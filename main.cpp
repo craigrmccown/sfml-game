@@ -1,62 +1,81 @@
 #include <SFML/Graphics.hpp>
 
-class Animation
+class SpriteSheet
 {
-    std::vector<sf::Texture *> textures;
-    sf::Sprite *sprite;
-    int current_elapsed;
-    int texture_index;
+    sf::Texture *texture;
+    int sprite_width;
+    int sprite_height;
 
     public:
 
-    static const int ms_per_frame = 500;
+    SpriteSheet(sf::Texture *texture, int sprite_width, int sprite_height)
+    {
+        this->texture = texture;
+        this->sprite_width = sprite_width;
+        this->sprite_height = sprite_height;
+    }
+
+    int set_texture(sf::Sprite *sprite, int x, int y)
+    {
+        sprite->setTexture(*texture);
+        sprite->setTextureRect(sf::IntRect(x * this->sprite_width, y * this->sprite_height, sprite_width, sprite_height));
+    }
+};
+
+class Animation
+{
+    SpriteSheet *sprite_sheet;
+    int sprite_sheet_y;
+    int sprite_sheet_x;
+    int num_frames;
+    int current_elapsed;
+    int ms_per_frame;
+
+    public:
+
     sf::Texture *current_texture;
 
-    Animation()
+    Animation(SpriteSheet *sprite_sheet, int sprite_sheet_y, int num_frames, int duration_ms)
     {
+        this->sprite_sheet = sprite_sheet;
+        this->sprite_sheet_y = sprite_sheet_y;
+        this->num_frames = num_frames;
         this->current_elapsed = 0;
-        this->texture_index = 0;
-    }
-
-    void set_sprite(sf::Sprite *sprite)
-    {
-        this->sprite = sprite;
-    }
-
-    void add_texture(sf::Texture *texture)
-    {
-        this->textures.push_back(texture);
+        this->sprite_sheet_x = 0;
+        this->ms_per_frame = (int)(1.0 * duration_ms / num_frames);
     }
 
     void step(int elapsed_ms)
     {
         this->current_elapsed += elapsed_ms;
-        int frames_elapsed = this->current_elapsed / Animation::ms_per_frame;
+        int frames_elapsed = this->current_elapsed / this->ms_per_frame;
 
         if (frames_elapsed > 0)
         {
-            this->current_elapsed = this->current_elapsed % Animation::ms_per_frame;
-            this->texture_index = (this->texture_index + 1) % this->textures.size();
+            this->current_elapsed = this->current_elapsed % this->ms_per_frame;
+            this->sprite_sheet_x = (this->sprite_sheet_x + frames_elapsed) % this->num_frames;
         }
+    }
 
-        this->sprite->setTexture(*this->textures[this->texture_index]);
+    void draw(sf::Sprite *sprite)
+    {
+        sprite_sheet->set_texture(sprite, this->sprite_sheet_x, this->sprite_sheet_y);
     }
 };
 
 class GameObject
 {
-    public:
+    protected:
 
     sf::Sprite sprite;
 
-    GameObject(int pos_x, int pos_y)
+    public:
+
+    GameObject() { }
+
+    void set_position(int pos_x, int pos_y)
     {
         this->sprite.setPosition(sf::Vector2f(pos_x, pos_y));
-    }
-
-    void set_texture(sf::Texture &texture)
-    {
-        this->sprite.setTexture(texture);
     }
 
     void move(float delta_x, float delta_y)
@@ -64,51 +83,58 @@ class GameObject
         this->sprite.move(delta_x, delta_y);
     }
 
-    void draw(sf::RenderWindow *window)
+    int get_width()
+    {
+        this->sprite.getTextureRect().width;
+    }
+
+    int get_height()
+    {
+        this->sprite.getTextureRect().height;
+    }
+
+    virtual void draw(sf::RenderWindow *window, int elapsed_ms) = 0;
+};
+
+class GrassTile : public GameObject
+{
+    public:
+
+    GrassTile(sf::Texture *texture)
+    {
+        this->sprite.setTexture(*texture);
+    }
+
+    void draw(sf::RenderWindow *window, int elapsed_ms)
     {
         window->draw(this->sprite);
     }
-
-    virtual void draw(sf::RenderWindow *window, int elapsed_ms);
 };
 
-class GrassTile : GameObject
+class WaterTile : public GameObject
 {
-    sf::Texture *texture;
+    SpriteSheet *sprite_sheet;
+    Animation *animation;
 
     public:
 
-    static const int tile_width = 100;
-    static const int tile_height = 50;
-
-    GrassTile()
+    WaterTile(sf::Texture *texture)
     {
-        // pass in texture manager and select texture
-        this->set_texture(*texture);
+        this->sprite_sheet = new SpriteSheet(texture, 100, 50);
+        this->animation = new Animation(this->sprite_sheet, 0, 4, 1000);
     }
 
     void draw(sf::RenderWindow *window, int elapsed_ms)
     {
-        this->draw(window);
-    }
-};
-
-class WaterTile : GameObject
-{
-    Animation animation;
-
-    public:
-
-    WaterTile()
-    {
-        // select textures from texture manager
-        // add textures to animation
+        this->animation->step(elapsed_ms);
+        this->animation->draw(&this->sprite);
+        window->draw(this->sprite);
     }
 
-    void draw(sf::RenderWindow *window, int elapsed_ms)
+    ~WaterTile()
     {
-        this->animation.step(elapsed_ms);
-        this->draw(window);
+        delete this->sprite_sheet;
+        delete this->animation;
     }
 };
 
@@ -116,49 +142,42 @@ class Map
 {
     int num_tiles_y;
     int num_tiles_x;
-    std::vector<GameTile *> tiles;
+    std::vector<GameObject *> tiles;
     std::vector<sf::Texture *> textures;
     std::vector<Animation *> animations;
 
     public:
 
-    Map(const int map_width)
+    Map(int map_width, int num_tiles_x, int num_tiles_y)
     {
-        this->num_tiles_y = this->num_tiles_x = (map_width / 2) / (GameTile::tile_width / 2);
-
         sf::Texture *grass_texture = new sf::Texture();
-        sf::Texture *water_texture_0 = new sf::Texture();
-        sf::Texture *water_texture_1 = new sf::Texture();
+        sf::Texture *water_texture = new sf::Texture();
 
         this->textures.push_back(grass_texture);
-        this->textures.push_back(water_texture_0);
-        this->textures.push_back(water_texture_1);
+        this->textures.push_back(water_texture);
 
         grass_texture->loadFromFile("assets/tile_grass.png");
-        water_texture_0->loadFromFile("assets/tile_water_0.png");
-        water_texture_1->loadFromFile("assets/tile_water_1.png");
+        water_texture->loadFromFile("assets/tile_water.png");
 
         for(int y = 0; y < num_tiles_y; y ++)
         {
             for (int x = 0; x < num_tiles_x; x ++)
             {
+                GameObject *tile;
+
                 if ((x - y) % 5 > 1 || x + y < 5)
                 {
-                    Animation *water_animation = new Animation();
-                    water_animation->add_texture(water_texture_0);
-                    water_animation->add_texture(water_texture_1);
-                    this->animations.push_back(water_animation);
-
-                    tiles.push_back(new GameTile(water_animation, map_width, x, y));
+                    tile = new WaterTile(water_texture);
                 }
                 else
                 {
-                    Animation *grass_animation = new Animation();
-                    grass_animation->add_texture(grass_texture);
-                    this->animations.push_back(grass_animation);
-
-                    tiles.push_back(new GameTile(grass_animation, map_width, x, y));
+                    tile = new GrassTile(grass_texture);
                 }
+
+                int x_pos = (x - y - 1) * (tile->get_width() / 2) + (map_width / 2);
+                int y_pos = (x + y) * (tile->get_height() / 2);
+                tile->set_position(x_pos, y_pos);
+                tiles.push_back(tile);
             }
         }
     }
@@ -199,7 +218,7 @@ int main()
 
     sf::Clock clock;
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "My Window");
-    Map map = Map(window_width);
+    Map map = Map(window_width, 25, 25);
 
     while (window.isOpen())
     {
