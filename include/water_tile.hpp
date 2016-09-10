@@ -6,7 +6,6 @@
 
 class WaterTile : public MapTile
 {
-
     SpriteSheet *sprite_sheet;
     Animation *animation;
 

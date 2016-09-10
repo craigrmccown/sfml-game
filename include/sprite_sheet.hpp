@@ -5,6 +5,9 @@
 
 class SpriteSheet
 {
+    sf::Texture *texture;
+    int sprite_width;
+    int sprite_height;
 
 public:
 
