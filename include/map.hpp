@@ -2,6 +2,9 @@
 #define MAP_HPP
 
 #include <SFML/Graphics.hpp>
+#include "map_tile.hpp"
+#include "grass_tile.hpp"
+#include "water_tile.hpp"
 
 class Map
 {

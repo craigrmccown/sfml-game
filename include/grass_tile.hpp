@@ -1,7 +1,8 @@
 #ifndef GRASS_TILE_HPP
 #define GRASS_TILE_HPP
 
-#include "include/map_tile.hpp"
+#include <SFML/Graphics.hpp>
+#include "map_tile.hpp"
 
 class GrassTile : public MapTile
 {

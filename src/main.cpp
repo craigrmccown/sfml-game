@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "include/map.hpp"
+#include "../include/map.hpp"
 
 int main()
 {

@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include "../include/grass_tile.hpp"
 
 GrassTile::GrassTile(sf::Texture *texture)
 {

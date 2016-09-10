@@ -1,7 +1,7 @@
 #ifndef MAP_TILE_HPP
 #define MAP_TILE_HPP
 
-#include "include/game_object.hpp"
+#include "game_object.hpp"
 
 class MapTile : public GameObject
 {

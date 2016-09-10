@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "map_tile.hpp"
+#include "sprite_sheet.hpp"
+#include "animation.hpp"
 
 class WaterTile : public MapTile
 {

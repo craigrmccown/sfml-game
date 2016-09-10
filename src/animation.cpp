@@ -1,4 +1,4 @@
-#include "include/animation.hpp"
+#include "../include/animation.hpp"
 
 Animation::Animation(SpriteSheet *sprite_sheet, int sprite_sheet_y, int num_frames, int duration_ms)
 {

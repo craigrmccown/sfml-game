@@ -2,7 +2,7 @@
 #define ANIMATION_HPP
 
 #include <SFML/Graphics.hpp>
-#include "include/sprite_sheet.hpp"
+#include "sprite_sheet.hpp"
 
 class Animation
 {

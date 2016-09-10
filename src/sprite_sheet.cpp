@@ -1,4 +1,4 @@
-#include "include/sprite_sheet.hpp"
+#include "../include/sprite_sheet.hpp"
 
 SpriteSheet::SpriteSheet(sf::Texture *texture, int sprite_width, int sprite_height)
 {

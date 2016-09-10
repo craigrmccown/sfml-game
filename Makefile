@@ -1,7 +1,47 @@
-all: program
+# commands
+CC = g++
+RM = rm -rf
+MKDIR = mkdir -p
+CP = cp -r
 
-program: main.o
-	g++ -std=c++11 main.o -o game -lsfml-graphics -lsfml-window -lsfml-system
+# options
+CFLAGS = -std=c++11
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-main.o: main.cpp
-	g++ -std=c++11 -c main.cpp
+# directories
+SDIR = src
+ODIR = obj
+BDIR = build
+ADIR = assets
+
+# build
+_OBJS = animation.o game_object.o grass_tile.o main.o map.o sprite_sheet.o water_tile.o
+OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
+_ASSETS = tile_grass.png tile_water.png
+ASSETS = $(patsubst %,$(ADIR)/%,$(_ASSETS))
+TARGET = $(BDIR)/game
+
+all: $(ODIR) $(BDIR) $(BDIR)/$(ADIR)/% $(TARGET)
+
+$(ODIR):
+	$(MKDIR) $@
+
+$(BDIR):
+	$(MKDIR) $@
+
+$(BDIR)/$(ADIR)/%: $(ASSETS)
+	$(CP) $(ADIR) $(BDIR)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $? -o $@ $(LIBS)
+
+$(ODIR)/%.o: $(SDIR)/%.cpp
+	$(CC) $(CFLAGS) -c $? -o $@
+
+.PHONY: assets
+assets: $(BDIR) 
+
+.PHONY: clean
+clean:
+	$(RM) $(ODIR)
+	$(RM) $(BDIR)

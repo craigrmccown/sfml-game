@@ -1,4 +1,4 @@
-#include "include/map.hpp"
+#include "../include/map.hpp"
 
 Map::Map(int map_width, int num_tiles_x, int num_tiles_y)
 {

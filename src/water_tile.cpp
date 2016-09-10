@@ -1,5 +1,4 @@
-#include <SFML/Graphics.hpp>
-#include "water_tile.hpp"
+#include "../include/water_tile.hpp"
 
 WaterTile::WaterTile(sf::Texture *texture)
 {

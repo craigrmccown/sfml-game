@@ -1,4 +1,4 @@
-#include "include/game_object.hpp"
+#include "../include/game_object.hpp"
 
 void GameObject::set_position(int pos_x, int pos_y)
 {
