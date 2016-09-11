@@ -1,3 +1,3 @@
 #include "../include/map_tile.hpp"
 
-MapTile::MapTile() : GameObject(GameObject::tile_width, GameObject::tile_depth, GameObject::tile_height) { }
+MapTile::MapTile() : GameObject(GameObject::base_width, GameObject::base_depth, GameObject::base_height) { }

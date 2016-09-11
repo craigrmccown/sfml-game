@@ -13,9 +13,9 @@ protected:
     int height;
 
 public:
-    static const int tile_width = 100;
-    static const int tile_depth = 50;
-    static const int tile_height = 25;
+    static const int base_width = 100;
+    static const int base_depth = 50;
+    static const int base_height = 25;
 
     GameObject(int depth, int width, int height);
     void set_position(float x, float y, float z);
