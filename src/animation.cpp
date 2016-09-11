@@ -10,6 +10,11 @@ Animation::Animation(SpriteSheet *sprite_sheet, int sprite_sheet_y, int num_fram
     this->ms_per_frame = (int)(1.0 * duration_ms / num_frames);
 }
 
+void Animation::change_duration(int duration_ms)
+{
+    this->ms_per_frame = (int)(1.0 * duration_ms / num_frames);
+}
+
 void Animation::step(int elapsed_ms)
 {
     this->current_elapsed += elapsed_ms;

@@ -16,6 +16,7 @@ class Animation
 public:
 
     Animation(SpriteSheet *sprite_sheet, int sprite_sheet_y, int num_frames, int duration_ms);
+    void change_duration(int duration_ms);
     void step(int elapsed_ms);
     void draw(sf::Sprite *sprite);
 };

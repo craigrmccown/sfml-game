@@ -13,8 +13,14 @@ public:
     
     static std::map<sf::Event::EventType, std::vector<std::function<void(sf::Event)>>> bus;
 
-    static void subscribe(sf::Event::EventType event, std::function<void(sf::Event)> func);
+
     static void publish(sf::Event event);
+
+    template <typename T>
+    static void subscribe(sf::Event::EventType event,T *instance, void(T:: *func)(sf::Event)) 
+    {
+        EventBus::bus[event].push_back(std::bind(func, instance, std::placeholders::_1));
+    }
 };
 
 #endif
