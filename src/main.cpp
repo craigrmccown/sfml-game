@@ -1,5 +1,8 @@
+#include <stack>
 #include <SFML/Graphics.hpp>
-#include "../include/map.hpp"
+#include "../include/game_state.hpp"
+#include "../include/map_game_state.hpp"
+#include "../include/event_bus.hpp"
 
 int main()
 {
@@ -8,7 +11,10 @@ int main()
 
     sf::Clock clock;
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "My Window");
-    Map map = Map(window_width, 15, 15);
+
+    std::stack<GameState *> states;
+
+    states.push(new MapGameState(&window));
 
     while (window.isOpen())
     {
@@ -21,11 +27,21 @@ int main()
             {
                 window.close();
             }
+            else
+            {
+                EventBus::publish(event);
+            }
         }
 
         window.clear(sf::Color::Black);
-        map.draw(&window, elapsed.asMilliseconds());
+        states.top()->draw(elapsed.asMilliseconds());
         window.display();
+    }
+
+    while (!states.empty())
+    {
+        delete states.top();
+        states.pop();
     }
 
     return 0;
