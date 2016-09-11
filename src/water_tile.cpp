@@ -4,7 +4,7 @@ WaterTile::WaterTile(sf::Texture *texture)
 {
     this->sprite_sheet = new SpriteSheet(texture, this->width, this->depth + this->height);
     this->animation = new Animation(this->sprite_sheet, 0, 5, 1000);
-    EventBus::subscribe(sf::Event::EventType::KeyPressed, this, &WaterTile::handle_key_pressed);
+    //EventBus::subscribe(sf::Event::EventType::KeyPressed, this, &WaterTile::handle_key_pressed);
 }
 
 void WaterTile::draw(sf::RenderWindow *window, int elapsed_ms)

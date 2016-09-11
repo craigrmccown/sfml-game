@@ -10,6 +10,11 @@ void MapGameState::draw(int elapsed_ms)
     this->map->draw(this->window, elapsed_ms);
 }
 
+void MapGameState::publish_event(sf::Event event)
+{
+
+}
+
 MapGameState::~MapGameState()
 {
     delete this->map;

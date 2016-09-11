@@ -30,7 +30,7 @@ int main()
             }
             else
             {
-                EventBus::publish(event);
+                states.top()->publish_event(event);
             }
         }
 
