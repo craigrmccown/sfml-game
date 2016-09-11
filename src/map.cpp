@@ -2,6 +2,8 @@
 
 Map::Map(int map_width, int num_tiles_x, int num_tiles_y)
 {
+    this-> map_width = map_width;
+
     sf::Texture *grass_texture = new sf::Texture();
     sf::Texture *water_texture = new sf::Texture();
 
@@ -11,26 +13,25 @@ Map::Map(int map_width, int num_tiles_x, int num_tiles_y)
     grass_texture->loadFromFile("assets/tile_grass.png");
     water_texture->loadFromFile("assets/tile_water.png");
 
-    for(int y = 0; y < num_tiles_y; y ++)
+    for (int z = 0; z < 2; z ++)
     {
-        for (int x = 0; x < num_tiles_x; x ++)
+        for (int y = 0; y < num_tiles_y; y ++)
         {
-            MapTile *tile;
-
-            if ((x - y) % 5 > 1 || x + y < 5)
+            for (int x = 0; x < num_tiles_x; x ++)
             {
-                tile = new WaterTile(water_texture);
+                if (z == 0)
+                {
+                    MapTile *tile = new GrassTile(grass_texture);
+                    tile->set_position(x, y, z);
+                    tiles.push_back(tile);
+                }
+                else if (z + x + y >= 9 && z + y + x <= 20)
+                {
+                    MapTile *tile = new GrassTile(grass_texture);
+                    tile->set_position(x, y, z);
+                    tiles.push_back(tile);
+                }
             }
-            else
-            {
-                tile = new GrassTile(grass_texture);
-            }
-
-            int x_pos = (x - y - 1) * (MapTile::width / 2) + (map_width / 2);
-            int y_pos = (x + y) * (MapTile::height / 2);
-
-            tile->set_position(x_pos, y_pos);
-            tiles.push_back(tile);
         }
     }
 }

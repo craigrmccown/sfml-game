@@ -10,10 +10,11 @@
 
 class Map
 {
-    int num_tiles_y;
-    int num_tiles_x;
+    int map_width;
     std::vector<MapTile *> tiles;
     std::vector<sf::Texture *> textures;
+
+    void set_tile_position(MapTile *tile, int x, int y, int z);
 
 public:
 

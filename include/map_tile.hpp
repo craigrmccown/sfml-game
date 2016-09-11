@@ -7,8 +7,7 @@ class MapTile : public GameObject
 {
 public:
 
-    static const int width = 100;
-    static const int height = 50;
+    MapTile();
 };
 
 #endif

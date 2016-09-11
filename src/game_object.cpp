@@ -1,11 +1,17 @@
 #include "../include/game_object.hpp"
 
-void GameObject::set_position(int pos_x, int pos_y)
+GameObject::GameObject(int width, int depth, int height)
 {
-    this->sprite.setPosition(sf::Vector2f(pos_x, pos_y));
+    this->width = width;
+    this->depth = depth;
+    this->height = height;
+
+    this->sprite.setOrigin(sf::Vector2f(0, 0 - height));
 }
 
-void GameObject::move(float delta_x, float delta_y)
+void GameObject::set_position(float x, float y, float z)
 {
-    this->sprite.move(delta_x, delta_y);
+    int x_pos = (int)((x - y - 1) * (GameObject::tile_width / 2) - this->width - 2);
+    int y_pos = (int)((x + y) * (GameObject::tile_depth / 2) - (GameObject::tile_height * z));
+    this->sprite.setPosition(sf::Vector2f(x_pos, y_pos));
 }

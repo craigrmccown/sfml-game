@@ -8,11 +8,17 @@ class GameObject
 protected:
 
     sf::Sprite sprite;
+    int depth;
+    int width;
+    int height;
 
 public:
+    static const int tile_width = 100;
+    static const int tile_depth = 50;
+    static const int tile_height = 25;
 
-    void set_position(int pos_x, int pos_y);
-    void move(float delta_x, float delta_y);
+    GameObject(int depth, int width, int height);
+    void set_position(float x, float y, float z);
     virtual void draw(sf::RenderWindow *window, int elapsed_ms) = 0;
 };
 
