@@ -18,7 +18,7 @@ public:
 
     WaterTile(sf::Texture *texture);
     void draw(sf::RenderWindow *window, int elapsed_ms);
-    void handle_event(sf::Event event);
+    void handle_key_pressed(sf::Event event);
     ~WaterTile();
 
 };
