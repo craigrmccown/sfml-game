@@ -11,9 +11,10 @@ int main()
 
     sf::Clock clock;
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "My Window");
-
+    sf::View view(sf::Vector2f(0, (window_height / 2) - (GameObject::base_depth / 2)), sf::Vector2f(window_width, window_height));
     std::stack<GameState *> states;
 
+    window.setView(view);
     states.push(new MapGameState(&window));
 
     while (window.isOpen())
