@@ -9,3 +9,8 @@ GameState::~GameState()
 {
 
 }
+
+void GameState::publish_event(sf::Event event)
+{
+
+}

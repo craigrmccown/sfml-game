@@ -1,13 +1,22 @@
 #include "../include/event_bus.hpp"
 
-std::map<sf::Event::EventType, std::vector<std::function<void(sf::Event)>>> EventBus::bus = std::map<sf::Event::EventType, std::vector<std::function<void(sf::Event)>>>();
+EventBus::EventBus()
+{
+    this->bus = bus_type();
+}
 
 void EventBus::publish(sf::Event event)
 {
-    std::vector<std::function<void(sf::Event)>> funcs = EventBus::bus[event.type];
+    std::map<int, std::function<void(sf::Event)>> func_map = this->bus[event.type];
 
-    for(std::vector<std::function<void(sf::Event)>>::size_type i = 0; i < funcs.size(); i++)
+    for(std::map<int, std::function<void(sf::Event)>>::iterator i = func_map.begin(); i != func_map.end(); i++)
     {
-        funcs[i](event);
+        i->second(event);
     }
+}
+
+void EventBus::unsubscribe(int token)
+{
+    sf::Event::EventType event_type = this->token_map[token];
+    this->bus[event_type].erase(token);
 }

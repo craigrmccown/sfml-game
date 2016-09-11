@@ -2,6 +2,7 @@
 #define GAME_STATE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include "event_bus.hpp"
 
 class GameState
@@ -15,6 +16,7 @@ public:
 
     GameState(sf::RenderWindow *window);
     virtual void draw(int elapsed_ms) = 0;
+    virtual void publish_event(sf::Event event);
     virtual ~GameState();
 };
 
