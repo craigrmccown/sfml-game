@@ -36,6 +36,11 @@ Map::Map(int map_width, int num_tiles_x, int num_tiles_y)
     }
 }
 
+std::vector<MapTile *> Map::get_tiles()
+{
+    return this->tiles;
+}
+
 void Map::draw(sf::RenderWindow *window, int elapsed_ms)
 {
     for (int i = 0; i < tiles.size(); i ++)

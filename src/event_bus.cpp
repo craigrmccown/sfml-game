@@ -7,16 +7,29 @@ EventBus::EventBus()
 
 void EventBus::publish(sf::Event event)
 {
-    std::map<int, std::function<void(sf::Event)>> func_map = this->bus[event.type];
+    std::map<uintptr_t, std::function<void(sf::Event)>> func_map = this->bus[event.type];
 
-    for(std::map<int, std::function<void(sf::Event)>>::iterator i = func_map.begin(); i != func_map.end(); i++)
+    for(std::map<uintptr_t, std::function<void(sf::Event)>>::iterator i = func_map.begin(); i != func_map.end(); i++)
     {
         i->second(event);
     }
 }
 
-void EventBus::unsubscribe(int token)
+void EventBus::unsubscribe(void *ptr)
 {
-    sf::Event::EventType event_type = this->token_map[token];
-    this->bus[event_type].erase(token);
+    uintptr_t ptr_val = reinterpret_cast<uintptr_t>(ptr);
+
+    if (!this->ptr_map.count(ptr_val))
+    {
+        return;
+    }
+
+    std::vector<sf::Event::EventType> event_types = this->ptr_map[ptr_val];
+
+    for(std::vector<sf::Event::EventType>::iterator i = event_types.begin(); i < event_types.end(); i++)
+    {
+        this->bus[*i].erase(ptr_val);
+    }
+
+    this->ptr_map.erase(ptr_val);
 }

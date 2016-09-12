@@ -19,6 +19,7 @@ class Map
 public:
 
     Map(int map_width, int num_tiles_x, int num_tiles_y);
+    std::vector<MapTile *> get_tiles();
     void draw(sf::RenderWindow *window, int elapsed_ms);
     ~Map();
 };

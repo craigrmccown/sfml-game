@@ -30,7 +30,7 @@ int main()
             }
             else
             {
-                states.top()->publish_event(event);
+                states.top()->event_bus.publish(event);
             }
         }
 

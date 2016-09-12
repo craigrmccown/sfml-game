@@ -3,6 +3,8 @@
 
 #include <SFML/Window.hpp>
 #include "game_state.hpp"
+#include "event_bus.hpp"
+#include <stdlib.h>
 #include "map.hpp"
 
 class MapGameState : public GameState
@@ -10,10 +12,10 @@ class MapGameState : public GameState
     Map *map;
 
 public:
-
+ 
     MapGameState(sf::RenderWindow *window);
+    void handle_key_pressed(sf::Event event);
     void draw(int elapsed_ms);
-    void publish_event(sf::Event event);
     ~MapGameState();
 };
 

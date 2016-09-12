@@ -4,18 +4,19 @@
 #include <map>
 #include <vector>
 #include <functional>
+#include "stdint.h"
 #include <SFML/Window.hpp>
 #include "sequence.hpp"
 
-typedef std::map<sf::Event::EventType, std::map<int, std::function<void(sf::Event)>>> bus_type;
+typedef std::map<sf::Event::EventType, std::map<uintptr_t, std::function<void(sf::Event)>>> bus_type;
+typedef std::map<uintptr_t, std::vector<sf::Event::EventType>> ptr_map_type;
 
 class EventBus
 {
 
 private:
 
-    Sequence token_seq = Sequence(0, 5000, 1);
-    std::map<int, sf::Event::EventType> token_map;
+    ptr_map_type ptr_map;
 
 public:
     
@@ -23,21 +24,13 @@ public:
 
     EventBus();
     void publish(sf::Event event);
-    void unsubscribe(int token);
+    void unsubscribe(void *ptr);
 
     template <typename T>
-    int subscribe(sf::Event::EventType event_type, T *instance, void(T:: *func)(sf::Event)) 
+    void subscribe(sf::Event::EventType event_type, T *instance, void(T:: *func)(sf::Event)) 
     {
-        /* get the current value of the sequence */
-        int val = this->token_seq.get();
-
-        this->token_map[val] = event_type;
-        this->bus[event_type][val] = std::bind(func, instance, std::placeholders::_1);
-
-        /* step the current value of the sequence */
-        this->token_seq.step();
-
-        return val;
+        this->ptr_map[reinterpret_cast<uintptr_t>(instance)].push_back(event_type);
+        this->bus[event_type][reinterpret_cast<uintptr_t>(instance)] = std::bind(func, instance, std::placeholders::_1);
     }
 };
 

@@ -14,9 +14,10 @@ protected:
 
 public:
 
+    EventBus event_bus;
+
     GameState(sf::RenderWindow *window);
     virtual void draw(int elapsed_ms) = 0;
-    virtual void publish_event(sf::Event event);
     virtual ~GameState();
 };
 
