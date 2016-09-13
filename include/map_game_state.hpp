@@ -6,10 +6,12 @@
 #include "event_bus.hpp"
 #include <stdlib.h>
 #include "map.hpp"
+#include "player.hpp"
 
 class MapGameState : public GameState
 {
     Map *map;
+    Player *player;
 
 public:
  

@@ -11,15 +11,15 @@ protected:
     int depth;
     int width;
     int height;
-    float x_pos;
-    float y_pos;
-    float z_pos;
-    float x_vel;
-    float y_vel;
-    float z_vel;
-    float x_acc;
-    float y_acc;
-    float z_acc;
+    float x_pos = 0;
+    float y_pos = 0;
+    float z_pos = 0;
+    float x_vel = 0;
+    float y_vel = 0;
+    float z_vel = 0;
+    float x_acc = 0;
+    float y_acc = 0;
+    float z_acc = 0;
 
     float calc_dist(float vel, float acc, float sec);
     float calc_vel(float vel, float acc, float sec);

@@ -1,9 +1,7 @@
 #include "../include/map.hpp"
 
-Map::Map(int map_width, int num_tiles_x, int num_tiles_y)
+Map::Map(int num_tiles_x, int num_tiles_y)
 {
-    this-> map_width = map_width;
-
     sf::Texture *grass_texture = new sf::Texture();
     sf::Texture *water_texture = new sf::Texture();
 
