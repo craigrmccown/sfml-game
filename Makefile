@@ -33,7 +33,7 @@ $(BDIR)/$(ADIR)/%: $(ASSETS)
 	$(CP) $(ADIR) $(BDIR)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $? -o $@ $(LIBS)
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
 	$(CC) $(CFLAGS) -c $? -o $@

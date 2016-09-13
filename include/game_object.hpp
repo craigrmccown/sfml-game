@@ -19,7 +19,6 @@ public:
 
     GameObject(int depth, int width, int height);
     void set_position(float x, float y, float z);
-    void set_color(int color);
     virtual void draw(sf::RenderWindow *window, int elapsed_ms) = 0;
 };
 

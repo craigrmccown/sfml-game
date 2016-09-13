@@ -15,8 +15,3 @@ void GameObject::set_position(float x, float y, float z)
     int y_pos = (int)((x + y) * (GameObject::base_depth / 2) - (GameObject::base_height * z));
     this->sprite.setPosition(sf::Vector2f(x_pos, y_pos));
 }
-
-void GameObject::set_color(int color)
-{
-    this->sprite.setColor(sf::Color(color));
-}

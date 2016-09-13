@@ -8,10 +8,6 @@ MapGameState::MapGameState(sf::RenderWindow *window) : GameState(window)
 
 void MapGameState::handle_key_pressed(sf::Event event)
 {
-    for(int i = 0; i < this->map->get_tiles().size(); i++)
-    {
-        this->map->get_tiles()[i]->set_color(rand());
-    }
 }
 
 void MapGameState::draw(int elapsed_ms)
