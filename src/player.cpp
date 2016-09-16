@@ -7,7 +7,8 @@ Player::Player(sf::Texture *texture) : GameObject(GameObject::base_width, GameOb
 
 void Player::walk()
 {
-    this-> x_vel = 0.3f;
+    this->x_vel = 4;
+    this->x_acc = -3;
 }
 
 void Player::draw(sf::RenderWindow *window, int elapsed_ms)

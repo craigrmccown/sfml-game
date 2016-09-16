@@ -1,4 +1,5 @@
 #include <stack>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "../include/game_state.hpp"
 #include "../include/map_game_state.hpp"
@@ -12,10 +13,10 @@ int main()
     sf::Clock clock;
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "My Window");
     sf::View view(sf::Vector2f(0, (window_height / 2) - (GameObject::base_depth / 2)), sf::Vector2f(window_width, window_height));
-    std::stack<GameState *> states;
+    std::stack<std::unique_ptr<GameState>> states;
 
     window.setView(view);
-    states.push(new MapGameState(&window));
+    states.push(std::unique_ptr<GameState>(new MapGameState(&window)));
 
     while (window.isOpen())
     {
@@ -37,12 +38,6 @@ int main()
         window.clear(sf::Color::Black);
         states.top()->draw(elapsed.asMilliseconds());
         window.display();
-    }
-
-    while (!states.empty())
-    {
-        delete states.top();
-        states.pop();
     }
 
     return 0;

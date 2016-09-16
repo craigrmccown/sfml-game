@@ -11,32 +11,18 @@ Map::Map(int num_tiles_x, int num_tiles_y)
     grass_texture->loadFromFile("assets/tile_grass.png");
     water_texture->loadFromFile("assets/tile_water.png");
 
-    for (int z = 0; z < 2; z ++)
+    for (int z = 0; z < 1; z ++)
     {
         for (int y = 0; y < num_tiles_y; y ++)
         {
             for (int x = 0; x < num_tiles_x; x ++)
             {
-                if (z == 0)
-                {
-                    MapTile *tile = new GrassTile(grass_texture);
-                    tile->set_position(x, y, z);
-                    tiles.push_back(tile);
-                }
-                else if (z + x + y >= 9 && z + y + x <= 20)
-                {
-                    MapTile *tile = new GrassTile(grass_texture);
-                    tile->set_position(x, y, z);
-                    tiles.push_back(tile);
-                }
+                MapTile *tile = new GrassTile(grass_texture);
+                tile->set_position(x, y, z);
+                this->tiles.push_back(tile);
             }
         }
     }
-}
-
-std::vector<MapTile *> Map::get_tiles()
-{
-    return this->tiles;
 }
 
 void Map::draw(sf::RenderWindow *window, int elapsed_ms)

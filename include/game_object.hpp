@@ -32,6 +32,10 @@ public:
     GameObject(int depth, int width, int height);
     void set_position(float x, float y, float z);
     void move(int elapsed_ms);
+    float get_width();
+    float get_height();
+    float get_x_pos();
+    float get_y_pos();
     virtual void draw(sf::RenderWindow *window, int elapsed_ms) = 0;
 };
 

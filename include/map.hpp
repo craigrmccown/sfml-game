@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <iostream>
 #include "map_tile.hpp"
 #include "grass_tile.hpp"
 #include "water_tile.hpp"
@@ -18,7 +17,6 @@ class Map
 public:
 
     Map(int num_tiles_x, int num_tiles_y);
-    std::vector<MapTile *> get_tiles();
     void draw(sf::RenderWindow *window, int elapsed_ms);
     ~Map();
 };

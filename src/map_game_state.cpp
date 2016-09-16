@@ -1,8 +1,9 @@
 #include "../include/map_game_state.hpp"
+#include <iostream>
 
 MapGameState::MapGameState(sf::RenderWindow *window) : GameState(window)
 {
-    /* memory leak for now */
+    /* TODO fix memory leak */
     sf::Texture *player_texture = new sf::Texture();
     player_texture->loadFromFile("assets/player.png");
 
@@ -26,4 +27,5 @@ void MapGameState::draw(int elapsed_ms)
 MapGameState::~MapGameState()
 {
     delete this->map;
+    delete this->player;
 }
