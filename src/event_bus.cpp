@@ -1,35 +1,30 @@
 #include "../include/event_bus.hpp"
 
-EventBus::EventBus()
+void EventBus::publish(const sf::Event event)
 {
-    this->bus = bus_type();
-}
+    callback_map_t cb_map = this->bus[event.type];
 
-void EventBus::publish(sf::Event event)
-{
-    std::map<uintptr_t, std::function<void(sf::Event)>> func_map = this->bus[event.type];
-
-    for(std::map<uintptr_t, std::function<void(sf::Event)>>::iterator i = func_map.begin(); i != func_map.end(); i++)
+    for(auto i = cb_map.begin(); i != cb_map.end(); i ++)
     {
         i->second(event);
     }
 }
 
-void EventBus::unsubscribe(void *ptr)
+void EventBus::unsubscribe(const void * const ptr)
 {
-    uintptr_t ptr_val = reinterpret_cast<uintptr_t>(ptr);
+    uintptr_t handle = reinterpret_cast<uintptr_t>(ptr);
 
-    if (!this->ptr_map.count(ptr_val))
+    if (!this->ptr_map.count(handle))
     {
         return;
     }
 
-    std::vector<sf::Event::EventType> event_types = this->ptr_map[ptr_val];
+    std::vector<sf::Event::EventType> event_types = this->ptr_map[handle];
 
-    for(std::vector<sf::Event::EventType>::iterator i = event_types.begin(); i < event_types.end(); i++)
+    for (auto i = event_types.begin(); i < event_types.end(); i++)
     {
-        this->bus[*i].erase(ptr_val);
+        this->bus[*i].erase(handle);
     }
 
-    this->ptr_map.erase(ptr_val);
+    this->ptr_map.erase(handle);
 }

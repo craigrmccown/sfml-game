@@ -8,29 +8,29 @@
 #include <SFML/Window.hpp>
 #include "sequence.hpp"
 
-typedef std::map<sf::Event::EventType, std::map<uintptr_t, std::function<void(sf::Event)>>> bus_type;
-typedef std::map<uintptr_t, std::vector<sf::Event::EventType>> ptr_map_type;
+typedef std::map<uintptr_t, std::function<void(sf::Event)>> callback_map_t;
+typedef std::map<sf::Event::EventType, callback_map_t> event_map_t;
+typedef std::map<uintptr_t, std::vector<sf::Event::EventType>> ptr_map_t;
 
 class EventBus
 {
 
 private:
 
-    ptr_map_type ptr_map;
+    ptr_map_t ptr_map;
+    event_map_t bus;
 
 public:
-    
-    bus_type bus;
 
-    EventBus();
-    void publish(sf::Event event);
-    void unsubscribe(void *ptr);
+    void publish(const sf::Event event);
+    void unsubscribe(const void * const ptr);
 
     template <typename T>
-    void subscribe(sf::Event::EventType event_type, T *instance, void(T:: *func)(sf::Event)) 
+    void subscribe(const sf::Event::EventType event_type, T* instance, void(T:: *func)(sf::Event)) 
     {
-        this->ptr_map[reinterpret_cast<uintptr_t>(instance)].push_back(event_type);
-        this->bus[event_type][reinterpret_cast<uintptr_t>(instance)] = std::bind(func, instance, std::placeholders::_1);
+        uintptr_t handle = reinterpret_cast<uintptr_t>(instance);
+        this->ptr_map[handle].push_back(event_type);
+        this->bus[event_type][handle] = std::bind(func, instance, std::placeholders::_1);
     }
 };
 
