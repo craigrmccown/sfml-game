@@ -4,7 +4,7 @@
 #include <map>
 #include <vector>
 #include <functional>
-#include "stdint.h"
+#include <cstdint>
 #include <SFML/Window.hpp>
 #include "sequence.hpp"
 
