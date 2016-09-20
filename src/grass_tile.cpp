@@ -1,11 +1,11 @@
 #include "../include/grass_tile.hpp"
 
-GrassTile::GrassTile(sf::Texture *texture)
+GrassTile::GrassTile(TextureManager &texture_manager) : MapTile()
 {
-    this->sprite.setTexture(*texture);
+    this->sprite.setTexture(texture_manager.get_texture("grass_tile"));
 }
 
-void GrassTile::draw(sf::RenderWindow *window, int elapsed_ms)
+void GrassTile::draw(sf::RenderWindow &window, int elapsed_ms)
 {
-    window->draw(this->sprite);
+    window.draw(this->sprite);
 }

@@ -15,7 +15,7 @@ BDIR = build
 ADIR = assets
 
 # build
-_OBJS = animation.o game_object.o grass_tile.o main.o map.o map_tile.o player.o sprite_sheet.o game_state.o map_game_state.o event_bus.o water_tile.o sequence.o
+_OBJS = game_object.o grass_tile.o main.o map.o map_tile.o game_state.o map_game_state.o event_bus.o player.o texture_manager.o
 OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 _ASSETS = tile_grass.png tile_water.png
 ASSETS = $(patsubst %,$(ADIR)/%,$(_ASSETS))

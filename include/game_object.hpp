@@ -1,6 +1,7 @@
 #ifndef GAME_OBJECT_HPP
 #define GAME_OBJECT_HPP
 
+#include <memory>
 #include <SFML/Graphics.hpp>
 
 class GameObject
@@ -36,7 +37,7 @@ public:
     float get_height();
     float get_x_pos();
     float get_y_pos();
-    virtual void draw(sf::RenderWindow *window, int elapsed_ms) = 0;
+    virtual void draw(sf::RenderWindow &window, int elapsed_ms) = 0;
 };
 
 #endif

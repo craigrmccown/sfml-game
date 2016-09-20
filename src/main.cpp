@@ -1,22 +1,31 @@
 #include <stack>
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include "../include/texture_manager.hpp"
 #include "../include/game_state.hpp"
 #include "../include/map_game_state.hpp"
 #include "../include/event_bus.hpp"
+
+void load_textures(TextureManager &texture_manager)
+{
+    texture_manager.load_texture("grass_tile", "assets/tile_grass.png");
+    texture_manager.load_texture("player", "assets/player.png");
+}
 
 int main()
 {
     const int window_width = 1500;
     const int window_height = window_width / 2;
 
+    TextureManager texture_manager;
     sf::Clock clock;
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "My Window");
     sf::View view(sf::Vector2f(0, (window_height / 2) - (GameObject::base_depth / 2)), sf::Vector2f(window_width, window_height));
     std::stack<std::unique_ptr<GameState>> states;
 
+    load_textures(texture_manager);
     window.setView(view);
-    states.push(std::unique_ptr<GameState>(new MapGameState(&window)));
+    states.push(std::unique_ptr<GameState>(new MapGameState(window, texture_manager)));
 
     while (window.isOpen())
     {
