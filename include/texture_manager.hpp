@@ -10,8 +10,8 @@ class TextureManager
 
 public:
 
-    void load_texture(std::string key, std::string path);
-    sf::Texture &get_texture(std::string key);
+    void load_texture(const std::string& key, const std::string& path);
+    const sf::Texture& get_texture(const std::string& key) const;
 };
 
 #endif

@@ -37,7 +37,7 @@ public:
     float get_height();
     float get_x_pos();
     float get_y_pos();
-    virtual void draw(sf::RenderWindow &window, int elapsed_ms) = 0;
+    virtual void draw(sf::RenderWindow& window, int elapsed_ms) = 0;
 };
 
 #endif

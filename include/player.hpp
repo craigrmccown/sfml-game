@@ -11,9 +11,9 @@ class Player : public GameObject
 
 public:
 
-    Player(TextureManager &texture_manager);
+    Player(const TextureManager& texture_manager);
     void walk();
-    void draw(sf::RenderWindow &window, int elapsed_ms);
+    void draw(sf::RenderWindow& window, int elapsed_ms);
 };
 
 #endif

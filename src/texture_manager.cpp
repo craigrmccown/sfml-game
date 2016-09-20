@@ -1,12 +1,13 @@
 #include "../include/texture_manager.hpp"
-#include <iostream>
 
-void TextureManager::load_texture(std::string key, std::string path)
+void TextureManager::load_texture(const std::string& key, const std::string& path)
 {
-    this->textures[key].loadFromFile(path);
+    sf::Texture texture;
+    texture.loadFromFile(path);
+    this->textures[key] = texture;
 }
 
-sf::Texture &TextureManager::get_texture(std::string key)
+const sf::Texture& TextureManager::get_texture(const std::string& key) const
 {
     return this->textures.at(key);
 }

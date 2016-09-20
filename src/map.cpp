@@ -1,6 +1,6 @@
 #include "../include/map.hpp"
 
-Map::Map(TextureManager &texture_manager, int num_tiles_x, int num_tiles_y)
+Map::Map(const TextureManager& texture_manager, int num_tiles_x, int num_tiles_y)
 {
     for (int z = 0; z < 1; z ++)
     {
@@ -16,7 +16,7 @@ Map::Map(TextureManager &texture_manager, int num_tiles_x, int num_tiles_y)
     }
 }
 
-void Map::draw(sf::RenderWindow &window, int elapsed_ms)
+void Map::draw(sf::RenderWindow& window, int elapsed_ms)
 {
     for (int i = 0; i < tiles.size(); i ++)
     {

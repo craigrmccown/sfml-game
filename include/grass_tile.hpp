@@ -10,8 +10,8 @@ class GrassTile : public MapTile
 {
 public:
 
-    GrassTile(TextureManager &texture);
-    void draw(sf::RenderWindow &window, int elapsed_ms);
+    GrassTile(const TextureManager& texture);
+    void draw(sf::RenderWindow& window, int elapsed_ms);
 };
 
 #endif

@@ -6,7 +6,7 @@
 #include "../include/map_game_state.hpp"
 #include "../include/event_bus.hpp"
 
-void load_textures(TextureManager &texture_manager)
+void load_textures(TextureManager& texture_manager)
 {
     texture_manager.load_texture("grass_tile", "assets/tile_grass.png");
     texture_manager.load_texture("player", "assets/player.png");
@@ -25,7 +25,7 @@ int main()
 
     load_textures(texture_manager);
     window.setView(view);
-    states.push(std::unique_ptr<GameState>(new MapGameState(window, texture_manager)));
+    states.push(std::unique_ptr<GameState>(new MapGameState(texture_manager)));
 
     while (window.isOpen())
     {
@@ -45,7 +45,7 @@ int main()
         }
 
         window.clear(sf::Color::Black);
-        states.top()->draw(elapsed.asMilliseconds());
+        states.top()->draw(window, elapsed.asMilliseconds());
         window.display();
     }
 

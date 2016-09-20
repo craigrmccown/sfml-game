@@ -10,17 +10,10 @@
 class GameState
 {
 
-protected:
-
-    sf::RenderWindow &window;
-    TextureManager &texture_manager;
-
 public:
 
     EventBus event_bus;
-
-    GameState(sf::RenderWindow &window, TextureManager &texture_manager);
-    virtual void draw(int elapsed_ms) = 0;
+    virtual void draw(sf::RenderWindow& window, int elapsed_ms) = 0;
 };
 
 #endif

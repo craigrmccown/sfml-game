@@ -16,9 +16,9 @@ class MapGameState : public GameState
 
 public:
  
-    MapGameState(sf::RenderWindow &window, TextureManager &texture_manager);
+    MapGameState(const TextureManager& texture_manager);
     void handle_key_pressed(sf::Event event);
-    void draw(int elapsed_ms);
+    void draw(sf::RenderWindow& window, int elapsed_ms);
 };
 
 #endif
