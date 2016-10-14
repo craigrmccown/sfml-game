@@ -4,14 +4,12 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "map_tile.hpp"
-#include "grass_tile.hpp"
-#include "water_tile.hpp"
+#include "game_object.hpp"
 #include "texture_manager.hpp"
 
 class Map
 {
-    std::vector<std::unique_ptr<MapTile>> tiles;
+    std::map<int, std::vector<std::shared_ptr<GameObject>>> map;
 
 public:
 
