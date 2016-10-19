@@ -6,7 +6,6 @@
 #include <SFML/Window.hpp>
 #include "map_tile.hpp"
 #include "grass_tile.hpp"
-#include "water_tile.hpp"
 #include "texture_manager.hpp"
 
 class Map

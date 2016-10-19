@@ -43,7 +43,7 @@ void GameObject::move(int elapsed_ms)
     this->set_position(this->x_pos + x_delta, this->y_pos + y_delta, this->z_pos + z_delta);
 }
 
-float GameObject::get_width() { return 1; }
-float GameObject::get_height() { return 1; }
-float GameObject::get_x_pos() { return this->x_pos; }
-float GameObject::get_y_pos() { return this->y_pos; }
+float GameObject::get_width() const { return 1; }
+float GameObject::get_height() const { return 1; }
+float GameObject::get_x_pos() const { return this->x_pos; }
+float GameObject::get_y_pos() const { return this->y_pos; }
