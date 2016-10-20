@@ -16,7 +16,7 @@ class Space2d
         std::vector<std::shared_ptr<GameObject>> objs;
         std::vector<Space2dNode> children;
 
-        Space2dNode(float left, float top, float width, float height);
+        Space2dNode(double left, double top, double width, double height);
         void build_children();
     };
 
@@ -27,7 +27,7 @@ class Space2d
 
 public:
 
-    Space2d(float left, float top, float width, float height);
+    Space2d(double left, double top, double width, double height);
     void build(int levels);
     void add(GameObject& obj);
     std::vector<std::shared_ptr<GameObject>> find(GameObject& obj);

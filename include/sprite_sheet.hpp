@@ -12,7 +12,7 @@ class SpriteSheet
 public:
 
     SpriteSheet(sf::Texture *texture, int sprite_width, int sprite_height);
-    int set_texture(sf::Sprite *sprite, int x, int y);
+    void set_texture(sf::Sprite *sprite, int x, int y);
 
 };
 

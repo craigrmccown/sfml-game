@@ -18,7 +18,7 @@ public:
  
     MapGameState(const TextureManager& texture_manager);
     void handle_key_pressed(sf::Event event);
-    void draw(sf::RenderWindow& window, int elapsed_ms);
+    void draw(sf::RenderWindow& window, double elapsed_ms);
 };
 
 #endif

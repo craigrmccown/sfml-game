@@ -1,17 +1,17 @@
 #include "../include/space_2d.hpp"
 
-Space2d::Space2dNode::Space2dNode(float left, float top, float width, float height) :
-    bounds(left, top, width, height)
+Space2d::Space2dNode::Space2dNode(double left, double top, double width, double height) :
+    bounds((float)left, (float)top, (float)width, (float)height)
 {
 
 }
 
 void Space2d::Space2dNode::build_children()
 {
-    float child_width = this->bounds.width / 2;
-    float child_height = this->bounds.height / 2;
-    float center_x = this->bounds.left + child_width;
-    float center_y = this->bounds.top + child_height;
+    double child_width = this->bounds.width / 2;
+    double child_height = this->bounds.height / 2;
+    double center_x = this->bounds.left + child_width;
+    double center_y = this->bounds.top + child_height;
 
     this->children.push_back(Space2dNode(center_x, this->bounds.top, child_width, child_height));
     this->children.push_back(Space2dNode(center_x, center_y, child_width, child_height));
@@ -19,7 +19,7 @@ void Space2d::Space2dNode::build_children()
     this->children.push_back(Space2dNode(this->bounds.left, this->bounds.top, child_width, child_height));
 }
 
-Space2d::Space2d(float left, float top, float width, float height) :
+Space2d::Space2d(double left, double top, double width, double height) :
     root(left, top, width, height)
 {
 
@@ -108,13 +108,13 @@ void Space2d::build(int levels)
 void Space2d::add(GameObject& obj)
 {
     sf::FloatRect bounds;
-    bounds = sf::FloatRect(obj.get_x_pos(), obj.get_y_pos(), obj.get_width(), obj.get_height());
+    bounds = sf::FloatRect((float)obj.get_x_pos(), (float)obj.get_y_pos(), (float)obj.get_width(), (float)obj.get_height());
     this->add(this->root, std::move(bounds), obj);
 }
 
 std::vector<std::shared_ptr<GameObject>> Space2d::find(GameObject& obj)
 {
     sf::FloatRect bounds;
-    bounds = sf::FloatRect(obj.get_x_pos(), obj.get_y_pos(), obj.get_width(), obj.get_height());
+    bounds = sf::FloatRect((float)obj.get_x_pos(), (float)obj.get_y_pos(), (float)obj.get_width(), (float)obj.get_height());
     return this->find(this->root, std::move(bounds), std::vector<std::shared_ptr<GameObject>>());
 }

@@ -15,7 +15,7 @@ class Map
 public:
 
     Map(const TextureManager& texture_manager, int num_tiles_x, int num_tiles_y);
-    void draw(sf::RenderWindow& window, int elapsed_ms);
+    void draw(sf::RenderWindow& window, double elapsed_ms);
 };
 
 #endif

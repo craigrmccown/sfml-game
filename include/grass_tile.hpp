@@ -11,7 +11,7 @@ class GrassTile : public MapTile
 public:
 
     GrassTile(const TextureManager& texture);
-    void draw(sf::RenderWindow& window, int elapsed_ms);
+    void draw(sf::RenderWindow& window, double elapsed_ms);
 };
 
 #endif

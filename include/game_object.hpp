@@ -9,21 +9,24 @@ class GameObject
 protected:
 
     sf::Sprite sprite;
+
     int depth;
     int width;
     int height;
-    float x_pos = 0;
-    float y_pos = 0;
-    float z_pos = 0;
-    float x_vel = 0;
-    float y_vel = 0;
-    float z_vel = 0;
-    float x_acc = 0;
-    float y_acc = 0;
-    float z_acc = 0;
 
-    float calc_dist(float vel, float acc, float sec);
-    float calc_vel(float vel, float acc, float sec);
+    double x_pos = 0;
+    double y_pos = 0;
+    int z_pos = 0;
+
+    double x_vel = 0;
+    double y_vel = 0;
+
+    double x_acc = 0;
+    double y_acc = 0;
+
+
+    double calc_dist(double vel, double acc, double sec);
+    double calc_vel(double vel, double acc, double sec);
 
 public:
     static const int base_width = 100;
@@ -31,13 +34,13 @@ public:
     static const int base_height = 25;
     
     GameObject(int depth, int width, int height);
-    void set_position(float x, float y, float z);
-    void move(int elapsed_ms);
-    float get_width() const;
-    float get_height() const;
-    float get_x_pos() const;
-    float get_y_pos() const;
-    virtual void draw(sf::RenderWindow& window, int elapsed_ms) = 0;
+    void set_position(double x, double y, int z);
+    void move(double elapsed_ms);
+    double get_width() const;
+    double get_height() const;
+    double get_x_pos() const;
+    double get_y_pos() const;
+    virtual void draw(sf::RenderWindow& window, double elapsed_ms) = 0;
 };
 
 #endif

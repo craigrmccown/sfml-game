@@ -11,7 +11,7 @@ void Player::walk()
     this->x_acc = -5;
 }
 
-void Player::draw(sf::RenderWindow& window, int elapsed_ms)
+void Player::draw(sf::RenderWindow& window, double elapsed_ms)
 {
     this->move(elapsed_ms);
     window.draw(this->sprite);

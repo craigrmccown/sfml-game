@@ -14,7 +14,7 @@ void MapGameState::handle_key_pressed(sf::Event event)
     this->player.walk();
 }
 
-void MapGameState::draw(sf::RenderWindow& window, int elapsed_ms)
+void MapGameState::draw(sf::RenderWindow& window, double elapsed_ms)
 {
     this->map.draw(window, elapsed_ms);
     this->player.draw(window, elapsed_ms);
