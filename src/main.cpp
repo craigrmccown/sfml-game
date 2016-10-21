@@ -20,11 +20,12 @@ int main()
     TextureManager texture_manager;
     sf::Clock clock;
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "My Window");
-    sf::View view(sf::Vector2f(0, (float)((window_height / 2) - (GameObject::base_depth / 2.0))), sf::Vector2f((float)window_width, (float)window_height));
+	sf::View view(sf::FloatRect(0, 0, (float)window_width, (float)window_height));
     std::stack<std::unique_ptr<GameState>> states;
 
     load_textures(texture_manager);
-    window.setView(view);
+	window.setView(view);
+	window.setFramerateLimit(60);
     states.push(std::unique_ptr<GameState>(new MapGameState(texture_manager)));
 
     while (window.isOpen())

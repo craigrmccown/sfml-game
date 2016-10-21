@@ -1,25 +1,47 @@
 #include "../include/map.hpp"
 
-Map::Map(const TextureManager& texture_manager, int num_tiles_x, int num_tiles_y)
+Map::Map(const TextureManager& texture_manager, EventBus& event_bus) : player(texture_manager)
 {
-    for (int z = 0; z < 1; z ++)
-    {
-        for (int y = 0; y < num_tiles_y; y ++)
-        {
-            for (int x = 0; x < num_tiles_x; x ++)
-            {
-                std::unique_ptr<MapTile> tile = std::unique_ptr<MapTile>(new GrassTile(texture_manager));
-                tile->set_position(x, y, z);
-                this->tiles.push_back(std::move(tile));
-            }
-        }
-    }
+	player.set_position(0, 0, 0);
+	this->add_object(player);
+	event_bus.subscribe(sf::Event::KeyPressed, this, &Map::handle_key_pressed);
 }
 
 void Map::draw(sf::RenderWindow& window, double elapsed_ms)
 {
-    for (size_t i = 0; i < tiles.size(); i ++)
-    {
-        tiles[i]->draw(window, elapsed_ms);
-    }
+	for (auto i = this->indexed_objects.begin(); i != this->indexed_objects.end(); i++)
+	{
+		for (auto j = i->second.begin(); j != i->second.end(); j++)
+		{
+			j->get()->draw(window, elapsed_ms);
+		}
+	}
+}
+
+void Map::add_object(GameObject& game_object)
+{
+	int z_pos = game_object.get_z_pos();
+	this->indexed_objects[z_pos].push_back(std::shared_ptr<GameObject>(&game_object));
+}
+
+void Map::handle_key_pressed(sf::Event event)
+{
+	switch (event.key.code)
+	{
+		case sf::Keyboard::Left:
+		{
+			this->player.walk(-1);
+			break;
+		}
+		case sf::Keyboard::Right:
+		{
+			this->player.walk(1);
+			break;
+		}
+		case sf::Keyboard::Space:
+		{
+			this->player.stop();
+			break;
+		}
+	}
 }

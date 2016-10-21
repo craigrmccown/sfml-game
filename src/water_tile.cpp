@@ -2,7 +2,7 @@
 
 WaterTile::WaterTile(sf::Texture *texture)
 {
-    this->sprite_sheet = new SpriteSheet(texture, this->width, this->depth + this->height);
+    this->sprite_sheet = new SpriteSheet(texture, this->width, this->height);
     this->animation = new Animation(this->sprite_sheet, 0, 5, 1000);
 }
 

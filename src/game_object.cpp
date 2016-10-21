@@ -10,13 +10,12 @@ double GameObject::calc_vel(double vel, double acc, double sec)
     return vel + acc * sec;
 }
 
-GameObject::GameObject(int width, int depth, int height)
+GameObject::GameObject(int width, int height)
 {
     this->width = width;
-    this->depth = depth;
     this->height = height;
 
-    this->sprite.setOrigin(sf::Vector2f((float)(width / 2), (float)(height + depth / 2)));
+    this->sprite.setOrigin(sf::Vector2f((float)(width / 2), (float)(height / 2)));
 }
 
 void GameObject::set_position(double x, double y, int z)
@@ -25,9 +24,7 @@ void GameObject::set_position(double x, double y, int z)
     this->y_pos = y;
     this->z_pos = z;
 
-    int x_pos = (int)((x - y) * (GameObject::base_width / 2));
-    int y_pos = (int)((x + y) * (GameObject::base_depth / 2) - (GameObject::base_height * z));
-    this->sprite.setPosition(sf::Vector2f((float)x_pos, (float)y_pos));
+    this->sprite.setPosition(sf::Vector2f((float)this->x_pos, (float)this->y_pos));
 }
 
 void GameObject::move(double elapsed_ms)
@@ -41,7 +38,8 @@ void GameObject::move(double elapsed_ms)
     this->set_position(this->x_pos + x_delta, this->y_pos + y_delta, this->z_pos);
 }
 
-double GameObject::get_width() const { return 1; }
-double GameObject::get_height() const { return 1; }
+double GameObject::get_width() const { return this->width; }
+double GameObject::get_height() const { return this->height; }
 double GameObject::get_x_pos() const { return this->x_pos; }
 double GameObject::get_y_pos() const { return this->y_pos; }
+int GameObject::get_z_pos() const { return this->z_pos; }

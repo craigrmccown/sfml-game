@@ -11,7 +11,6 @@ class GameState
 {
 
 public:
-
     EventBus event_bus;
     virtual void draw(sf::RenderWindow& window, double elapsed_ms) = 0;
 };

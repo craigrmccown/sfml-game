@@ -12,7 +12,6 @@
 class MapGameState : public GameState
 {
     Map map;
-    Player player;
 
 public:
  

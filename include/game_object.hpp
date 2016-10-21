@@ -10,7 +10,6 @@ protected:
 
     sf::Sprite sprite;
 
-    int depth;
     int width;
     int height;
 
@@ -30,16 +29,16 @@ protected:
 
 public:
     static const int base_width = 100;
-    static const int base_depth = 50;
     static const int base_height = 25;
     
-    GameObject(int depth, int width, int height);
+    GameObject(int width, int height);
     void set_position(double x, double y, int z);
     void move(double elapsed_ms);
     double get_width() const;
     double get_height() const;
     double get_x_pos() const;
     double get_y_pos() const;
+	int get_z_pos() const;
     virtual void draw(sf::RenderWindow& window, double elapsed_ms) = 0;
 };
 
