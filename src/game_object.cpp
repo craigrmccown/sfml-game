@@ -15,7 +15,7 @@ GameObject::GameObject(int width, int height)
     this->width = width;
     this->height = height;
 
-    this->sprite.setOrigin(sf::Vector2f((float)(width / 2), (float)(height / 2)));
+    this->sprite.setOrigin(sf::Vector2f((float)(width / 2), (float)height));
 }
 
 void GameObject::set_position(double x, double y, int z)

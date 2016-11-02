@@ -23,13 +23,12 @@ protected:
     double x_acc = 0;
     double y_acc = 0;
 
-
     double calc_dist(double vel, double acc, double sec);
     double calc_vel(double vel, double acc, double sec);
 
 public:
     static const int base_width = 100;
-    static const int base_height = 25;
+    static const int base_height = 100;
     
     GameObject(int width, int height);
     void set_position(double x, double y, int z);

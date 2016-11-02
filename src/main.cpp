@@ -19,7 +19,7 @@ int main()
 
     TextureManager texture_manager;
     sf::Clock clock;
-    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "My Window");
+    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "SFML Game");
 	sf::View view(sf::FloatRect(0, 0, (float)window_width, (float)window_height));
     std::stack<std::unique_ptr<GameState>> states;
 
