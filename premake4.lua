@@ -5,13 +5,15 @@ solution "sfml-work"
 		kind "WindowedApp"
 		language "C++"
 		files { "./include/*.h", "./src/*.cpp" }
-		location "build"
 
 		configuration "macosx"
-			buildoptions { "-F /Library/Frameworks", 
+			buildoptions { 
+						   "-F /Library/Frameworks", 
 						   "-std=c++11"	
 						 }
-			linkoptions { "-framework sfml-window",
+
+			linkoptions { 
+						  "-framework sfml-window",
 						  "-framework sfml-graphics",
 						  "-framework sfml-system",
 						  "-framework sfml-audio"
@@ -20,6 +22,11 @@ solution "sfml-work"
 		configuration "Debug"
 			defines { "DEBUG" }
 			flags { "Symbols" }
+			targetdir "bin/debug"
+			postbuildcommands 
+			{
+				"cp -rf assets bin/debug/sfml-game.app/Contents/MacOS/Resources"
+			}
 
 		configuration "Release"
 			defines { "NDEBUG" }
