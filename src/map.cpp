@@ -2,9 +2,10 @@
 
 Map::Map(const TextureManager& texture_manager, EventBus& event_bus) : player(texture_manager)
 {
-	player.set_position(0, 0, 0);
+	player.set_position(500, 500, 0);
 	this->add_object(player);
 	event_bus.subscribe(sf::Event::KeyPressed, this, &Map::handle_key_pressed);
+    event_bus.subscribe(sf::Event::MouseMoved, this, &Map::handle_mouse_move);
 }
 
 void Map::draw(sf::RenderWindow& window, double elapsed_ms)
@@ -30,12 +31,12 @@ void Map::handle_key_pressed(sf::Event event)
 	{
 		case sf::Keyboard::Left:
 		{
-			this->player.walk(-1);
+			this->player.apply_force(-1000, 0);
 			break;
 		}
 		case sf::Keyboard::Right:
 		{
-			this->player.walk(1);
+			this->player.apply_force(1000, 0);
 			break;
 		}
 		case sf::Keyboard::Space:
@@ -44,4 +45,12 @@ void Map::handle_key_pressed(sf::Event event)
 			break;
 		}
 	}
+}
+
+void Map::handle_mouse_move(sf::Event event)
+{
+    if (event.mouseMove.x >= this->player.get_x_pos() - this->player.get_width() / 2)
+    {
+        std::cout << event.mouseMove.x << std::endl;
+    }
 }

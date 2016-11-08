@@ -8,7 +8,6 @@
 
 void load_textures(TextureManager& texture_manager)
 {
-    texture_manager.load_texture("grass_tile", "tile_grass.png");
     texture_manager.load_texture("player", "player.png");
 }
 

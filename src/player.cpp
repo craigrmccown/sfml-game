@@ -3,6 +3,7 @@
 Player::Player(const TextureManager& texture_manager) : GameObject(GameObject::base_width, GameObject::base_height)
 {
     this->sprite.setTexture(texture_manager.get_texture("player"));
+    this->sprite.setScale(100/this->sprite.getLocalBounds().width, 100/this->sprite.getLocalBounds().height);
 }
 
 void Player::walk(int direction)
