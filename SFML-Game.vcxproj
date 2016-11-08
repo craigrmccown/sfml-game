@@ -90,6 +90,7 @@
       <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\colto\Documents\C++ Libs\SFML-2.4.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -166,33 +167,27 @@ copy "$(SolutionDir)assets" "$(TargetDir)assets"</Command>
     <ClInclude Include="include\event_bus.hpp" />
     <ClInclude Include="include\game_object.hpp" />
     <ClInclude Include="include\game_state.hpp" />
-    <ClInclude Include="include\grass_tile.hpp" />
     <ClInclude Include="include\map.hpp" />
     <ClInclude Include="include\map_game_state.hpp" />
-    <ClInclude Include="include\map_tile.hpp" />
     <ClInclude Include="include\player.hpp" />
     <ClInclude Include="include\sequence.hpp" />
     <ClInclude Include="include\space_2d.hpp" />
     <ClInclude Include="include\sprite_sheet.hpp" />
     <ClInclude Include="include\texture_manager.hpp" />
-    <ClInclude Include="include\water_tile.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\animation.cpp" />
     <ClCompile Include="src\event_bus.cpp" />
     <ClCompile Include="src\game_object.cpp" />
     <ClCompile Include="src\game_state.cpp" />
-    <ClCompile Include="src\grass_tile.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\map.cpp" />
     <ClCompile Include="src\map_game_state.cpp" />
-    <ClCompile Include="src\map_tile.cpp" />
     <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\sequence.cpp" />
     <ClCompile Include="src\space_2d.cpp" />
     <ClCompile Include="src\sprite_sheet.cpp" />
     <ClCompile Include="src\texture_manager.cpp" />
-    <ClCompile Include="src\water_tile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,7 +8,7 @@
 
 void load_textures(TextureManager& texture_manager)
 {
-    texture_manager.load_texture("player", "player.png");
+    texture_manager.load_texture("player", "assets/player.png");
 }
 
 int main()

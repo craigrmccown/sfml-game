@@ -25,8 +25,8 @@ protected:
     double x_acc = 0;
     double y_acc = 0;
 
-    std::vector<int> x_forces;
-    std::vector<int> y_forces;
+    std::vector<double> x_forces;
+    std::vector<double> y_forces;
 
     double calc_dist(double vel, double acc, double sec);
     double calc_vel(double vel, double acc, double sec);

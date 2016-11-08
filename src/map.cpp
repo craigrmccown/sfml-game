@@ -49,8 +49,29 @@ void Map::handle_key_pressed(sf::Event event)
 
 void Map::handle_mouse_move(sf::Event event)
 {
-    if (event.mouseMove.x >= this->player.get_x_pos() - this->player.get_width() / 2)
+	/* if the mouse is inside of the object */
+    if (event.mouseMove.x >= this->player.get_x_pos() - this->player.get_width() / 2
+		&& event.mouseMove.x <= this->player.get_x_pos() + this->player.get_width() / 2
+		&& event.mouseMove.y <= this->player.get_y_pos()
+		&& event.mouseMove.y >= this->player.get_y_pos() - this->player.get_height())
     {
-        std::cout << event.mouseMove.x << std::endl;
+		if (event.mouseMove.x <= this->player.get_x_pos() + this->player.get_width() / 2
+			&& event.mouseMove.x >= this->player.get_x_pos())
+		{
+			this->player.apply_force(-3000, 0);
+		}
+		else
+		{
+			this->player.apply_force(3000, 0);
+		}
+
+		if (event.mouseMove.y <= this->player.get_y_pos() - this->player.get_height() / 2)
+		{
+			this->player.apply_force(0, 3000);
+		}
+		else
+		{
+			this->player.apply_force(0, -3000);
+		}
     }
 }
