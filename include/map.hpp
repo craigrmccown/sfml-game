@@ -21,7 +21,6 @@ public:
     void draw(sf::RenderWindow& window, double elapsed_ms);
 	void add_object(GameObject& object);
 	void handle_key_pressed(sf::Event event);
-    void handle_mouse_move(sf::Event event);
 };
 
 #endif

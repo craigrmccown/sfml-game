@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include "game_object.hpp"
 #include "texture_manager.hpp"
 
