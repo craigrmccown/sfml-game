@@ -1,5 +1,10 @@
 #include "../include/game_object.hpp"
 
+void GameObject::add_tag(int tag)
+{
+	this->tags.insert(tag);
+}
+
 double GameObject::calc_dist(double vel, double acc, double sec)
 {
     return vel * sec + acc * sec * sec / 2;

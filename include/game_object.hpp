@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <numeric>
+#include <unordered_set>
 #include <SFML/Graphics.hpp>
 
 class GameObject
@@ -10,6 +11,7 @@ class GameObject
 protected:
 
     sf::Sprite sprite;
+	std::unordered_set<int> tags;
 
     int width;
     int height;
@@ -33,12 +35,18 @@ protected:
     double calc_acc(double force);
 
 public:
+	enum Tag : int {
+		Player = 0,
+		Enemy = 1
+	};
+
     static const int base_width = 100;
     static const int base_height = 100;
     static const int base_mass = 10;
     
     GameObject(int width, int height, double mass);
     GameObject(int width, int height);
+	void add_tag(int tag);
     void set_position(double x, double y, int z);
     void apply_force(double x_magnitude, double y_magnitude);
     void move(double elapsed_ms);
